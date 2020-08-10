@@ -1,11 +1,7 @@
 package com.elmolee.qrcodeedittextpreferencelibrary
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.hardware.Camera
-import android.hardware.camera2.CameraManager
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
@@ -27,7 +23,7 @@ class QRCodePreferenceDialogFragmentCompat : PreferenceDialogFragmentCompat() {
         }
 
         view.imageButton_qrcode.setOnClickListener {
-            when (getNumberOfCameras() > 0) {
+            when (Utils.getNumberOfCameras(this.context!!) > 0) {
                 false -> Toast.makeText(this.context,  getString(R.string.toast_camera_error), Toast.LENGTH_SHORT).show()
                 true -> {
                     val activityWeakRef = WeakReference(this)
@@ -62,25 +58,13 @@ class QRCodePreferenceDialogFragmentCompat : PreferenceDialogFragmentCompat() {
         }
     }
 
-    private fun getNumberOfCameras(): Int {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val manager = context!!.getSystemService(Context.CAMERA_SERVICE) as CameraManager?
-            manager?.apply {
-                return cameraIdList.size
-            }
-        } else {
-            return Camera.getNumberOfCameras()
-        }
-        return 0
-    }
-
     companion object {
-        fun newInstance(key: String): QRCodePreferenceDialogFragmentCompat {
+        fun newInstance(key: String, checkValidURL: Boolean = false): QRCodePreferenceDialogFragmentCompat {
             val fragment = QRCodePreferenceDialogFragmentCompat()
             val b = Bundle(1)
             b.putString(ARG_KEY, key)
             fragment.arguments = b
-
+            Utils.checkValidURL = checkValidURL
             return fragment
         }
     }

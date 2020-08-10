@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    // Preference Keys
+    <string name="pref_websiteUrl_key">pref_websiteUrl_key</string>
+    <string name="pref_string_key">pref_string_key</string>
+
+    // Preference Titles
+    <string name="pref_websiteUrl_title">Website URL</string>
+    <string name="pref_string_title">String</string>
+
+    // Default Values
+    <string name="pref_websiteUrl_def">http://wwww.google.com/</string>
+</resources>

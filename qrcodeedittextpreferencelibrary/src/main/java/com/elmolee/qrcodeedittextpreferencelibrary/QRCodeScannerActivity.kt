@@ -10,12 +10,9 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
-import android.util.Patterns
-import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import java.net.MalformedURLException
 
 class QRCodeScannerActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
     private var scannerView: ZXingScannerView? = null
@@ -78,19 +75,21 @@ class QRCodeScannerActivity : AppCompatActivity(), ZXingScannerView.ResultHandle
     }
 
     override fun handleResult(rawResult: Result) {
-        val isURL = isValidURL(rawResult.text)
-        if (isURL) {
-            val intent = Intent()
-            intent.putExtra(Intent.EXTRA_TEXT, rawResult.text)
-            setResult(RESULT_OK, intent)
-            finish()
-        } else {
-            scannerView?.apply {
-                Thread.sleep(500)
-                resumeCameraPreview(this@QRCodeScannerActivity)
+        if (Utils.checkValidURL) {
+            val isURL = Utils.isValidURL(rawResult.text)
+            if (!isURL) {
+                scannerView?.apply {
+                    Thread.sleep(500)
+                    resumeCameraPreview(this@QRCodeScannerActivity)
+                }
+                Toast.makeText(this,  getString(R.string.toast_invalid_url), Toast.LENGTH_SHORT).show()
+                return
             }
-            Toast.makeText(this,  getString(R.string.toast_invalid_url), Toast.LENGTH_SHORT).show()
         }
+        val intent = Intent()
+        intent.putExtra(Intent.EXTRA_TEXT, rawResult.text)
+        setResult(RESULT_OK, intent)
+        finish()
     }
 
     private fun requestPermissionForExternalStorage() {
@@ -115,13 +114,5 @@ class QRCodeScannerActivity : AppCompatActivity(), ZXingScannerView.ResultHandle
                 }
             }
         }
-    }
-
-    private fun isValidURL(urlString: String): Boolean {
-        try {
-            return URLUtil.isValidUrl(urlString) && Patterns.WEB_URL.matcher(urlString).matches()
-        } catch (e: MalformedURLException) {
-        }
-        return false
     }
 }

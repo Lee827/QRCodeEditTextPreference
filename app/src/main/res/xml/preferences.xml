@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.elmolee.qrcodeedittextpreferencelibrary.QRCodeEditTextPreference
+            android:defaultValue="@string/pref_websiteUrl_def"
+            android:key="@string/pref_websiteUrl_key"
+            android:title="@string/pref_websiteUrl_title"/>
+
+    <com.elmolee.qrcodeedittextpreferencelibrary.QRCodeEditTextPreference
+            android:key="@string/pref_string_key"
+            android:title="@string/pref_string_title"/>
+</androidx.preference.PreferenceScreen>
