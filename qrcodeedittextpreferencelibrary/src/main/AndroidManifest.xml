@@ -1,9 +1,0 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.elmolee.qrcodeedittextpreferencelibrary">
-    <uses-permission android:name="android.permission.CAMERA" />
-
-    <application>
-        <activity android:name=".QRCodeScannerActivity" />
-    </application>
-
-</manifest>

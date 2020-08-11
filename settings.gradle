@@ -1,1 +1,1 @@
-include ':app', ':qrcodeedittextpreferencelibrary'
+include ':app', ':qrcodeedittext'
