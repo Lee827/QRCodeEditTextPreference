@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.elmolee.qrcodeedittextpreferencelibrary.test", appContext.getPackageName());
+        assertEquals("com.elmolee.qrcodeedittext.test", appContext.getPackageName());
     }
 }
