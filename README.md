@@ -8,7 +8,7 @@ repositories {
 ```
 2. Add this in your app's build.gradle
 ```js
-   implementation 'com.github.Lee827:QRCodeEditTextPreference:1.0.0'
+   implementation 'com.github.Lee827:QRCodeEditTextPreference:1.0.2'
 ```   
 3. Add this in your app's Manifest
 ```js
