@@ -1,5 +1,6 @@
 package com.elmolee.qrcodeedittext
 
+import android.Manifest
 import android.os.Bundle
 import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
@@ -24,12 +25,15 @@ class QRCodeScannerActivity : AppCompatActivity(), ZXingScannerView.ResultHandle
 
     private val areRequiredPermissionsHaveBeenGranted: Boolean
         inline get() = when {
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> requiredPermissions.map {
-                ContextCompat.checkSelfPermission(
-                    this,
-                    it
-                )
-            }.none { it != PackageManager.PERMISSION_GRANTED }
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> {
+                val list = requiredPermissions.filter { it == Manifest.permission.CAMERA }.toMutableList()
+                list.map {
+                    ContextCompat.checkSelfPermission(
+                        this,
+                        it
+                    )
+                }.none { it != PackageManager.PERMISSION_GRANTED }
+            }
             else -> true
         }
 
